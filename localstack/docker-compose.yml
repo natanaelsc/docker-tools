@@ -1,0 +1,21 @@
+name: localstack
+
+services:
+  localstack:
+    container_name: localstack
+    image: docker.io/localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    environment:
+      - DEBUG=${DEBUG:-0}
+      - SERVICES=${SERVICES:-s3}
+    volumes:
+      - ./data:/var/lib/localstack
+      - type: bind
+        source: ./scripts
+        target: /root/localstack
+        read_only: true
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
