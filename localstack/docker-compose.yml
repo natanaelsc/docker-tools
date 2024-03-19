@@ -3,7 +3,7 @@ name: localstack
 services:
   localstack:
     container_name: localstack
-    image: docker.io/localstack/localstack:latest
+    image: docker.io/localstack/localstack:3.2.0
     ports:
       - "127.0.0.1:4566:4566"            # LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559"  # external services port range
