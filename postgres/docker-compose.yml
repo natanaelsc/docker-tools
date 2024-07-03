@@ -1,0 +1,25 @@
+name: postgres
+
+services:
+  postgres:
+    container_name: postgres
+    image: docker.io/postgres:alpine
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+  
+volumes:
+  postgres:
+    name: postgres
+    driver: local
